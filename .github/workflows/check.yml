@@ -1,7 +1,7 @@
 name: Sync
 on:
   schedule:
-    - cron: '0 * 1 * *'  # every hour
+    - cron: '* * * * *'  # every hour
 
 jobs:
   sync:
