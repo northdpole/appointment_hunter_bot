@@ -1,0 +1,23 @@
+name: Sync
+on:
+  schedule:
+    - cron: '0 * 1 * *'  # every hour
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+    - name: Setup
+      uses: ianwalter/puppeteer-container@acc52cd2334ad9eaf6e1974562d263e0a711b7e8
+    - name: Run
+      env: 
+        SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+        GITHUB_API_KEY: ${{ secrets.API_TOKEN }}
+      run: |
+
+        npm install
+        node main.js
