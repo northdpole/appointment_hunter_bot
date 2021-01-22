@@ -14,10 +14,16 @@ jobs:
       uses: ianwalter/puppeteer-container@acc52cd2334ad9eaf6e1974562d263e0a711b7e8
     - name: Run
       env: 
-        SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
-        SSH_KEY: ${{ secrets.SSH_KEY }}
-        GITHUB_API_KEY: ${{ secrets.API_TOKEN }}
+        ELEMENT_SELECTOR: ${{ secrets.ELEMENT_SELECTOR }}
+        SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
+        PASS_SELECTOR: ${{ secrets.PASS_SELECTOR }}
+        EMAIL_SELECTOR: ${{ secrets.EMAIL_SELECTOR }}
+        EMAIL: ${{ secrets.EMAIL }}
+        MAIN_URL: ${{ secrets.MAIN_URL }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        NO_SUCCESS_VAL: ${{ secrets.NO_SUCCESS_VAL }}
+        TELEGRAM_API_TOKEN: ${{ secrets.TELEGRAM_API_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       run: |
-
         npm install
         node main.js

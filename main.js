@@ -1,10 +1,13 @@
 require('dotenv').config()  // local dev
-
+const cron = require('node-cron');
 const puppeteer = require('puppeteer') 
 const TelegramBot = require('node-telegram-bot-api')
 
+this.schedule = '* * * * *'  // every minute
+
 let checker = async () => {
-    const browser = await puppeteer.launch({ headless: true,arg:['--no-sandbox']})
+    
+    const browser = await puppeteer.launch({ headless: false, arg:['--disable-setuid-sandbox','--no-sandbox']})
     const page = await browser.newPage()
 
     await page.setViewport({ width: 1280, height: 800 })
@@ -19,9 +22,8 @@ let checker = async () => {
     let pass = process.env.PASSWORD
     let no_success_val = process.env.NO_SUCCESS_VAL
 
-    const token = process.env.TELEGRAM_API_TOKEN 
-    const bot = new TelegramBot(token, { polling: false })
-    const chatid = process.env.TEKEGRAM_CHAT_ID
+    const bot = new TelegramBot(process.env.TELEGRAM_API_TOKEN , { polling: false })
+    const chatid = process.env.TELEGRAM_CHAT_ID
     let telegram_success_message = "Appointment found! visit "+main_url
     
     try {
@@ -53,6 +55,10 @@ let checker = async () => {
         bot.sendMessage(chatid, "Hunter job encountered an exception, you might want to investigate, message was: "+e.message)
     }
 }
-    
-    checker().then((value) => {   console.log(value);  // Success!
-    });
+
+var task = cron.schedule(this.schedule, () => {
+    console.log("Task execution")
+    checker().then((value) => {console.log(value)})
+})
+task.start()
+
