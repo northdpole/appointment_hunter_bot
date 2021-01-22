@@ -1,7 +1,11 @@
-name: Sync
+name: Check
+
 on:
   schedule:
-    - cron: '* * * * *'  # every hour
+    - cron: '* * * * *'  # every minute
+  push:
+    branches:
+      - master
 
 jobs:
   sync:
