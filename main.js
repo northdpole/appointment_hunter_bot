@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const puppeteer = require('puppeteer') 
 const TelegramBot = require('node-telegram-bot-api')
 
-this.schedule = '* * * * *'  // every minute
+this.schedule = '* * * * 5'  // every 5 minutes
 
 let checker = async () => {
     
