@@ -3,11 +3,11 @@ const cron = require('node-cron');
 const puppeteer = require('puppeteer') 
 const TelegramBot = require('node-telegram-bot-api')
 
-this.schedule = '* * * * *'  // every minute
+this.schedule = '* * * * 5'  // every 5 minutes
 
 let checker = async () => {
     
-    const browser = await puppeteer.launch({ headless: false, arg:['--disable-setuid-sandbox','--no-sandbox']})
+    const browser = await puppeteer.launch({ headless: true, arg:['--disable-setuid-sandbox','--no-sandbox']})
     const page = await browser.newPage()
 
     await page.setViewport({ width: 1280, height: 800 })
